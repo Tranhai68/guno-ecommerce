@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GUNO - Thời Trang Việt Nam</title>
+<meta name="description" content="GUNO - Thương hiệu thời trang Việt Nam. Đồ nam, nữ, thể thao & phụ kiện chất lượng.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== TOP UTILITY BAR ===== -->
+<div class="topbar">
+  <div class="container topbar-inner">
+    <div class="topbar-left">
+      <a href="about.html">Về GUNO</a>
+      <a href="about.html#care">Care & Share</a>
+    </div>
+    <div class="topbar-right">
+      <a href="club.html">⭐ GunoClub</a>
+      <a href="stores.html">📍 Cửa hàng</a>
+      <a href="support.html">Chăm sóc KH</a>
+      <a href="#" id="loginLink">Đăng nhập</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PROMO MARQUEE ===== -->
+<div class="promo-bar">
+  <div class="promo-track">
+    <span>🔥 GUNO DAY – Nhập <b>GUNO100</b> giảm 100K đơn từ 299K</span>
+    <span>🚚 Freeship đơn từ 299K</span>
+    <span>🔄 Đổi trả miễn phí trong 60 ngày</span>
+    <span>💰 Hoàn tiền đến 7% GunoCash</span>
+    <span>🔥 GUNO DAY – Nhập <b>GUNO100</b> giảm 100K đơn từ 299K</span>
+    <span>🚚 Freeship đơn từ 299K</span>
+    <span>🔄 Đổi trả miễn phí trong 60 ngày</span>
+    <span>💰 Hoàn tiền đến 7% GunoCash</span>
+  </div>
+</div>
+
+<!-- ===== MAIN HEADER ===== -->
+<header class="header" id="header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <svg viewBox="0 0 120 32" width="120" height="32"><text x="0" y="26" font-family="Inter" font-weight="900" font-size="30" fill="#2D3436">GUNO</text></svg>
+    </a>
+    <nav class="nav" id="mainNav">
+      <a href="index.html" class="nav-link active" data-badge="new">NEW</a>
+      <a href="collection.html?cat=nam" class="nav-link">NAM</a>
+      <a href="collection.html?cat=nu" class="nav-link">NỮ</a>
+      <a href="collection.html?cat=the-thao" class="nav-link">THỂ THAO</a>
+      <a href="collection.html?cat=phu-kien" class="nav-link">PHỤ KIỆN</a>
+      <a href="collection.html?cat=sale" class="nav-link sale-link"><span class="sale-sup">-50%</span>SALE</a>
+    </nav>
+    <div class="header-search">
+      <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="search" placeholder="Tìm kiếm sản phẩm..." id="searchInput">
+    </div>
+    <div class="header-actions">
+      <button class="action-btn" id="accountBtn" aria-label="Tài khoản">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="8" r="4"/></svg>
+      </button>
+      <button class="action-btn cart-btn" id="cartBtn" aria-label="Giỏ hàng">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg>
+        <span class="badge" id="cartBadge">0</span>
+      </button>
+      <button class="action-btn hamburger" id="menuBtn" aria-label="Menu">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main id="app"></main>
+
+<!-- ===== CART DRAWER ===== -->
+<div class="overlay" id="overlay"></div>
+<aside class="drawer cart-drawer" id="cartDrawer">
+  <div class="drawer-head">
+    <h3>Giỏ hàng</h3>
+    <button class="close-btn" id="closeCart">&times;</button>
+  </div>
+  <div class="drawer-notice">🚚 Freeship đơn từ 299K · 🔄 60 ngày đổi trả</div>
+  <div class="drawer-body" id="cartBody">
+    <p class="empty-msg">Chưa có sản phẩm nào trong giỏ hàng.</p>
+  </div>
+  <div class="drawer-foot">
+    <div class="cart-total"><span>Tạm tính</span><strong id="cartTotal">0đ</strong></div>
+    <a href="checkout.html" class="btn btn-primary btn-block">THANH TOÁN</a>
+    <p class="cart-note">Phí vận chuyển sẽ được tính ở trang thanh toán</p>
+  </div>
+</aside>
+
+<!-- ===== MOBILE MENU DRAWER ===== -->
+<aside class="drawer mobile-menu" id="mobileMenu">
+  <div class="drawer-head">
+    <span class="logo-text">GUNO</span>
+    <button class="close-btn" id="closeMenu">&times;</button>
+  </div>
+  <nav class="mobile-nav">
+    <a href="index.html">Trang chủ</a>
+    <a href="collection.html?cat=nam">Nam</a>
+    <a href="collection.html?cat=nu">Nữ</a>
+    <a href="collection.html?cat=the-thao">Thể thao</a>
+    <a href="collection.html?cat=phu-kien">Phụ kiện</a>
+    <a href="collection.html?cat=sale">Sale</a>
+    <hr>
+    <a href="club.html">GunoClub</a>
+    <a href="stores.html">Cửa hàng</a>
+    <a href="support.html">CSKH</a>
+    <a href="about.html">Về Guno</a>
+  </nav>
+</aside>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast"></div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-cta">
+    <div class="container footer-cta-inner">
+      <div>
+        <h3>GUNO lắng nghe bạn!</h3>
+        <p>Chúng tôi luôn trân trọng mọi ý kiến đóng góp từ khách hàng.</p>
+        <a href="support.html" class="btn btn-outline-light">Đóng góp ý kiến →</a>
+      </div>
+      <div class="footer-hotline">
+        <div><small>HOTLINE</small><strong>1900.27.27.37</strong></div>
+        <div><small>EMAIL</small><strong>cool@guno.vn</strong></div>
+      </div>
+    </div>
+  </div>
+  <div class="container footer-grid">
+    <div>
+      <h4>GUNOCLUB</h4>
+      <a href="club.html">Ưu đãi & Đặc quyền</a>
+      <a href="club.html">GunoCash</a>
+    </div>
+    <div>
+      <h4>CHÍNH SÁCH</h4>
+      <a href="support.html">Chính sách đổi trả</a>
+      <a href="support.html">Chính sách bảo mật</a>
+      <a href="support.html">Chính sách giao hàng</a>
+    </div>
+    <div>
+      <h4>CHĂM SÓC KHÁCH HÀNG</h4>
+      <a href="support.html">Trải nghiệm mua sắm 100% hài lòng</a>
+      <a href="support.html">Hỏi đáp – FAQs</a>
+    </div>
+    <div>
+      <h4>VỀ GUNO</h4>
+      <a href="about.html">Câu chuyện về GUNO</a>
+      <a href="about.html#care">Care & Share</a>
+    </div>
+    <div>
+      <h4>ĐỊA CHỈ LIÊN HỆ</h4>
+      <p>VP HN: 175 Nguyễn Thái Học, Đống Đa</p>
+      <p>VP HCM: KCN Cát Lái, TP. Thủ Đức</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">© 2026 GUNO FASHION. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="data.js"></script><script src="app.js"></script>
+</body>
+</html>
