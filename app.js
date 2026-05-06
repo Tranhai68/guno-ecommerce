@@ -5,9 +5,18 @@ const app=$('#app'),overlay=$('#overlay'),cartDrawer=$('#cartDrawer'),cartBody=$
 const page=location.pathname.split('/').pop()||'index.html';
 const params=new URLSearchParams(location.search);
 
+/* ===== DEFAULT BANNERS ===== */
+const DEFAULT_BANNERS=[
+{title:'BST Polo Wide Pants',img:'assets/banners/banner-home.png',link:'collection.html?cat=nam',active:true},
+{title:'Thời trang Nam',img:'assets/banners/banner-men.png',link:'collection.html?cat=nam',active:true},
+{title:'Thời trang Nữ',img:'assets/banners/banner-women.png',link:'collection.html?cat=nu',active:true},
+{title:'Đồ Thể Thao',img:'assets/banners/banner-sport.png',link:'collection.html?cat=the-thao',active:true},
+{title:'SALE - Giảm đến 50%',img:'assets/banners/banner-sale.png',link:'collection.html?cat=sale',active:true}
+];
+
 /* ===== ADMIN DATA BRIDGE ===== */
 function getProducts(){try{const d=localStorage.getItem('guno_products');return d?JSON.parse(d):PRODUCTS}catch(e){return PRODUCTS}}
-function getBanners(){try{const d=localStorage.getItem('guno_banners');return d?JSON.parse(d).filter(b=>b.active):[]}catch(e){return[]}}
+function getBanners(){try{const d=localStorage.getItem('guno_banners');const parsed=d?JSON.parse(d).filter(b=>b.active):[];return parsed.length?parsed:DEFAULT_BANNERS}catch(e){return DEFAULT_BANNERS}}
 function getNavItems(){try{const d=localStorage.getItem('guno_navItems');return d?JSON.parse(d).filter(n=>n.active):[]}catch(e){return[]}}
 function getPopups(){try{const d=localStorage.getItem('guno_popups');return d?JSON.parse(d).filter(p=>p.active):[]}catch(e){return[]}}
 function getVouchers(){try{const d=localStorage.getItem('guno_vouchers');return d?JSON.parse(d).filter(v=>v.active):[]}catch(e){return[]}}
@@ -83,7 +92,7 @@ function renderHome(){
   const hotP=AP.filter(p=>p.badge==='Bán chạy'||p.rating>=4.7).slice(0,8);
   const saleP=AP.filter(p=>p.discount).slice(0,4);
   const banners=getBanners();
-  const bHTML=banners.length?banners.map((b,i)=>`<div class="hero-slide${i===0?' active':''}" style="display:${i===0?'flex':'none'}"><a href="${b.link}"><img class="hero-img" src="${b.img}" alt="${b.title}"></a><div class="hero-overlay"><div class="hero-content"><h1 class="hero-title">${b.title}</h1><a href="${b.link}" class="btn btn-primary">Khám phá ngay</a></div></div></div>`).join(''):'<div class="hero-slide active"><img class="hero-img" src="assets/banners/banner-home.png" alt="GUNO"></div>';
+  const bHTML=banners.map((b,i)=>`<div class="hero-slide${i===0?' active':''}" style="display:${i===0?'flex':'none'}"><a href="${b.link}"><img class="hero-img" src="${b.img}" alt="${b.title}"></a><div class="hero-overlay"><div class="hero-content"><h1 class="hero-title">${b.title}</h1><a href="${b.link}" class="btn btn-primary">Khám phá ngay</a></div></div></div>`).join('');
   const dots=banners.length>1?`<div class="hero-dots">${banners.map((_,i)=>`<button class="hero-dot${i===0?' active':''}" data-slide="${i}"></button>`).join('')}</div>`:'';
   app.innerHTML=`
   <section class="hero" id="heroSlider">${bHTML}${dots}${banners.length>1?'<button class="hero-arrow hero-prev" data-dir="-1">‹</button><button class="hero-arrow hero-next" data-dir="1">›</button>':''}</section>
