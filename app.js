@@ -85,23 +85,149 @@ function cardHTML(p){
   <div class="product-name">${p.name}</div>
   <div class="product-price"><span class="price-current">${fmt(p.price)}</span>${hasSale?`<span class="price-discount">-${p.discount||Math.round((1-p.price/p.oldPrice)*100)}%</span><span class="price-original">${fmt(p.oldPrice||p.price)}</span>`:''}</div></div>`}
 
-/* ===== RENDER HOMEPAGE ===== */
+/* ===== RENDER HOMEPAGE (UNIQLO STYLE) ===== */
 function renderHome(){
   const AP=getProducts();
-  const newP=AP.filter(p=>p.cat.includes('new')).slice(0,8);
-  const hotP=AP.filter(p=>p.badge==='Bán chạy'||p.rating>=4.7).slice(0,8);
-  const saleP=AP.filter(p=>p.discount).slice(0,4);
-  const banners=getBanners();
-  const bHTML=banners.map((b,i)=>`<div class="hero-slide${i===0?' active':''}" style="display:${i===0?'flex':'none'}"><a href="${b.link}"><img class="hero-img" src="${b.img}" alt="${b.title}"></a><div class="hero-overlay"><div class="hero-content"><h1 class="hero-title">${b.title}</h1><a href="${b.link}" class="btn btn-primary">Khám phá ngay</a></div></div></div>`).join('');
-  const dots=banners.length>1?`<div class="hero-dots">${banners.map((_,i)=>`<button class="hero-dot${i===0?' active':''}" data-slide="${i}"></button>`).join('')}</div>`:'';
+  const newP=AP.filter(p=>p.cat.includes('new')).slice(0,12);
+  const hotP=AP.filter(p=>p.badge==='Bán chạy'||p.rating>=4.7).slice(0,12);
+  const saleP=AP.filter(p=>p.discount).slice(0,8);
+  const essentials=AP.filter(p=>p.price<250000).slice(0,8);
+
+  /* Hero slides data (Uniqlo full-viewport) */
+  const heroSlides=[
+    {img:'assets/banners/banner-home.png',tag:'Bộ Sưu Tập Mới',title:'Polo Wide Pants',desc:'GUNO Polo – Nhẹ nhàng, thoải mái, với dòng sản phẩm chất lượng và đa sắc màu.',price:'429.000 VND',link:'collection.html?cat=nam'},
+    {img:'assets/banners/banner-women.png',tag:'Hàng Mới Về',title:'Thời Trang Nữ',desc:'Phong cách nữ tính, thanh lịch cho mọi dịp.',price:'319.000 VND',link:'collection.html?cat=nu'},
+    {img:'assets/banners/banner-sport.png',tag:'Active Collection',title:'Đồ Thể Thao',desc:'Năng động, thoáng mát cho mọi hoạt động.',price:'339.000 VND',link:'collection.html?cat=the-thao'},
+    {img:'assets/banners/banner-sale.png',tag:'Ưu đãi đặc biệt',title:'Sale Đến 50%',desc:'Cơ hội sở hữu sản phẩm GUNO với giá tốt nhất.',price:'Từ 169.000 VND',link:'collection.html?cat=sale'}
+  ];
+
+  const heroHTML=heroSlides.map((s,i)=>`<div class="uq-hero-slide${i===0?' active':''}" data-uqslide="${i}">
+    <img src="${s.img}" alt="${s.title}">
+    <div class="uq-hero-overlay"><div class="uq-hero-text">
+      <span class="uq-hero-tag">${s.tag}</span>
+      <h1 class="uq-hero-title">${s.title}</h1>
+      <p class="uq-hero-desc">${s.desc}</p>
+      <div class="uq-hero-price">${s.price}</div>
+      <a href="${s.link}" class="uq-hero-btn">Khám phá ngay</a>
+    </div></div>
+  </div>`).join('');
+
+  const dotsHTML=heroSlides.map((_,i)=>`<button class="uq-dot${i===0?' active':''}" data-uqdot="${i}"></button>`).join('');
+
   app.innerHTML=`
-  <section class="hero" id="heroSlider">${bHTML}${dots}${banners.length>1?'<button class="hero-arrow hero-prev" data-dir="-1">‹</button><button class="hero-arrow hero-next" data-dir="1">›</button>':''}</section>
-  <div class="quick-links"><a href="collection.html?cat=nam" class="quick-link">Áo thun</a><a href="collection.html?cat=the-thao" class="quick-link">Đồ thể thao</a><a href="collection.html?cat=nam" class="quick-link">Quần shorts</a><a href="collection.html?cat=nu" class="quick-link">Đồ nữ</a><a href="collection.html?cat=phu-kien" class="quick-link">Phụ kiện</a><a href="collection.html?cat=sale" class="quick-link">Outlet</a></div>
-  <section class="section container"><div class="section-head"><div><div class="section-eyebrow">Mua theo nhu cầu</div><h2 class="section-title">Tủ đồ Guno cho mọi ngày</h2></div><a href="collection.html?cat=new" class="section-link">Xem tất cả →</a></div><div class="product-grid">${newP.map(cardHTML).join('')}</div></section>
-  ${saleP.length?`<div class="container"><div class="sale-strip"><h2>🔥 FLASH SALE - Giảm đến 50%</h2><p>Ưu đãi có hạn, nhanh tay kẻo lỡ!</p><a href="collection.html?cat=sale" class="btn btn-outline-light">Xem ngay →</a></div></div>`:''}
-  <section class="section container"><div class="section-head"><div><div class="section-eyebrow">Best sellers</div><h2 class="section-title">Sản phẩm bán chạy</h2></div><a href="collection.html?cat=nam" class="section-link">Xem tất cả →</a></div><div class="product-grid">${hotP.map(cardHTML).join('')}</div></section>
-  <div class="container"><div class="service-row"><div class="service-item"><div class="service-icon">🚚</div><strong>Miễn phí vận chuyển</strong><span>Đơn hàng từ 299K</span></div><div class="service-item"><div class="service-icon">🔄</div><strong>60 ngày đổi trả</strong><span>Miễn phí, không cần lý do</span></div><div class="service-item"><div class="service-icon">💰</div><strong>Hoàn tiền 7%</strong><span>Tích GunoCash mỗi đơn</span></div><div class="service-item"><div class="service-icon">📞</div><strong>Hỗ trợ 24/7</strong><span>Hotline: 1900.27.27.37</span></div></div></div>`;
+  <!-- HERO FULL-VIEWPORT -->
+  <section class="uq-hero" id="uqHero">
+    ${heroHTML}
+    <div class="uq-dots">${dotsHTML}</div>
+    <button class="uq-arrow uq-arrow-prev" data-uqdir="-1">‹</button>
+    <button class="uq-arrow uq-arrow-next" data-uqdir="1">›</button>
+  </section>
+
+  <!-- CATEGORY DUO GRID -->
+  <div class="uq-cat-grid">
+    <a href="collection.html?cat=nam" class="uq-cat-card">
+      <img src="assets/banners/banner-men.png" alt="Thời trang Nam">
+      <div class="uq-cat-info">
+        <div class="uq-cat-label">Nam</div>
+        <div class="uq-cat-name">Thời trang Nam</div>
+        <span class="uq-cat-btn">Khám phá →</span>
+      </div>
+    </a>
+    <a href="collection.html?cat=nu" class="uq-cat-card">
+      <img src="assets/banners/banner-women.png" alt="Thời trang Nữ">
+      <div class="uq-cat-info">
+        <div class="uq-cat-label">Nữ</div>
+        <div class="uq-cat-name">Thời trang Nữ</div>
+        <span class="uq-cat-btn">Khám phá →</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- NEW ARRIVALS CAROUSEL -->
+  <section class="uq-section">
+    <div class="uq-section-head">
+      <h2 class="uq-section-title">Hàng Mới Về</h2>
+      <a href="collection.html?cat=new" class="uq-section-more">Xem tất cả →</a>
+    </div>
+    <div class="uq-carousel-wrap">
+      <div class="uq-carousel" id="newCarousel">${newP.map(cardHTML).join('')}</div>
+      <button class="uq-carousel-arrow uq-carousel-prev" data-carousel="newCarousel" data-cdir="-1">‹</button>
+      <button class="uq-carousel-arrow uq-carousel-next" data-carousel="newCarousel" data-cdir="1">›</button>
+    </div>
+  </section>
+
+  <!-- SALE BANNER -->
+  ${saleP.length?`<div class="uq-sale">
+    <h2>🔥 FLASH SALE — Giảm đến 50%</h2>
+    <p>Ưu đãi có hạn, nhanh tay kẻo lỡ!</p>
+    <a href="collection.html?cat=sale" class="uq-sale-btn">Mua ngay</a>
+  </div>`:''}
+
+  <!-- BEST SELLERS CAROUSEL -->
+  <section class="uq-section">
+    <div class="uq-section-head">
+      <h2 class="uq-section-title">Bán Chạy Nhất</h2>
+      <a href="collection.html?cat=nam" class="uq-section-more">Xem tất cả →</a>
+    </div>
+    <div class="uq-carousel-wrap">
+      <div class="uq-carousel" id="hotCarousel">${hotP.map(cardHTML).join('')}</div>
+      <button class="uq-carousel-arrow uq-carousel-prev" data-carousel="hotCarousel" data-cdir="-1">‹</button>
+      <button class="uq-carousel-arrow uq-carousel-next" data-carousel="hotCarousel" data-cdir="1">›</button>
+    </div>
+  </section>
+
+  <!-- LIFESTYLE EDITORIAL BANNER -->
+  <div class="uq-feature">
+    <img src="assets/banners/banner-about.png" alt="GUNO Lifestyle">
+    <div class="uq-feature-overlay"><div class="uq-feature-text">
+      <h2>Phong Cách Sống GUNO</h2>
+      <p>Thoải mái, bền vững, cho mọi khoảnh khắc trong ngày.</p>
+      <a href="about.html" class="uq-hero-btn">Tìm hiểu thêm</a>
+    </div></div>
+  </div>
+
+  <!-- TRIPLE CATEGORY -->
+  <div class="uq-triple">
+    <a href="collection.html?cat=the-thao" class="uq-triple-card">
+      <img src="assets/banners/banner-sport.png" alt="Thể Thao">
+      <div class="uq-triple-info"><h3>Thể Thao</h3><p>Active & Performance</p></div>
+    </a>
+    <a href="collection.html?cat=phu-kien" class="uq-triple-card">
+      <img src="assets/banners/banner-accessories.png" alt="Phụ Kiện">
+      <div class="uq-triple-info"><h3>Phụ Kiện</h3><p>Chống nắng & Basics</p></div>
+    </a>
+    <a href="collection.html?cat=sale" class="uq-triple-card">
+      <img src="assets/banners/banner-sale.png" alt="Outlet">
+      <div class="uq-triple-info"><h3>Outlet Sale</h3><p>Giảm đến 50%</p></div>
+    </a>
+  </div>
+
+  <!-- ESSENTIALS CAROUSEL -->
+  ${essentials.length?`<section class="uq-section">
+    <div class="uq-section-head">
+      <h2 class="uq-section-title">Essentials — Cơ Bản Hàng Ngày</h2>
+      <a href="collection.html?cat=nam" class="uq-section-more">Xem tất cả →</a>
+    </div>
+    <div class="uq-carousel-wrap">
+      <div class="uq-carousel" id="essCarousel">${essentials.map(cardHTML).join('')}</div>
+      <button class="uq-carousel-arrow uq-carousel-prev" data-carousel="essCarousel" data-cdir="-1">‹</button>
+      <button class="uq-carousel-arrow uq-carousel-next" data-carousel="essCarousel" data-cdir="1">›</button>
+    </div>
+  </section>`:''}
+
+  <!-- USP STRIP -->
+  <div class="uq-usp">
+    <div class="uq-usp-grid">
+      <div class="uq-usp-item"><div class="uq-usp-icon">🚚</div><div class="uq-usp-text"><strong>Miễn phí vận chuyển</strong><span>Đơn hàng từ 299K</span></div></div>
+      <div class="uq-usp-item"><div class="uq-usp-icon">🔄</div><div class="uq-usp-text"><strong>60 ngày đổi trả</strong><span>Miễn phí, không cần lý do</span></div></div>
+      <div class="uq-usp-item"><div class="uq-usp-icon">💰</div><div class="uq-usp-text"><strong>Hoàn tiền 7%</strong><span>Tích GunoCash mỗi đơn</span></div></div>
+      <div class="uq-usp-item"><div class="uq-usp-icon">📞</div><div class="uq-usp-text"><strong>Hỗ trợ 24/7</strong><span>Hotline: 1900.27.27.37</span></div></div>
+    </div>
+  </div>`;
+
   highlightNav('index.html');
+  initUqSlider();
+  initCarouselArrows();
 }
 
 /* ===== RENDER COLLECTION ===== */
@@ -243,18 +369,43 @@ document.addEventListener('click',e=>{
   // Filter chips
   const fc=e.target.closest('[data-fc]');
   if(fc){location.href='collection.html?cat='+fc.dataset.fc;return}
-});
-
-/* ===== SLIDER ===== */
-let slideIdx=0;
-document.addEventListener('click',e=>{
+  // UQ hero arrows
+  const uqA=e.target.closest('[data-uqdir]');
+  if(uqA){uqGoTo(window._uqIdx+Number(uqA.dataset.uqdir));return}
+  // UQ hero dots
+  const uqD=e.target.closest('[data-uqdot]');
+  if(uqD){uqGoTo(Number(uqD.dataset.uqdot));return}
+  // Old hero arrows
   const arrow=e.target.closest('[data-dir]');
   if(arrow){const slides=$$('.hero-slide');const dots=$$('.hero-dot');if(!slides.length)return;slides[slideIdx].style.display='none';if(dots[slideIdx])dots[slideIdx].classList.remove('active');slideIdx=(slideIdx+Number(arrow.dataset.dir)+slides.length)%slides.length;slides[slideIdx].style.display='flex';if(dots[slideIdx])dots[slideIdx].classList.add('active');return}
   const dot=e.target.closest('[data-slide]');
   if(dot){const slides=$$('.hero-slide');const dots=$$('.hero-dot');slides[slideIdx].style.display='none';if(dots[slideIdx])dots[slideIdx].classList.remove('active');slideIdx=Number(dot.dataset.slide);slides[slideIdx].style.display='flex';if(dots[slideIdx])dots[slideIdx].classList.add('active');return}
+  // Carousel arrows
+  const cA=e.target.closest('[data-carousel]');
+  if(cA){const el=document.getElementById(cA.dataset.carousel);if(el){el.scrollBy({left:Number(cA.dataset.cdir)*260,behavior:'smooth'})}return}
   // Place order
   if(e.target.closest('#placeOrderBtn')){placeOrder();return}
 });
+
+/* ===== UNIQLO HERO SLIDER ===== */
+let slideIdx=0;
+window._uqIdx=0;
+window._uqTimer=null;
+function uqGoTo(idx){
+  const slides=$$('.uq-hero-slide');const dots=$$('.uq-dot');
+  if(!slides.length)return;
+  idx=(idx+slides.length)%slides.length;
+  slides.forEach((s,i)=>{s.classList.toggle('active',i===idx)});
+  dots.forEach((d,i)=>{d.classList.toggle('active',i===idx)});
+  window._uqIdx=idx;
+}
+function initUqSlider(){
+  window._uqIdx=0;
+  clearInterval(window._uqTimer);
+  window._uqTimer=setInterval(()=>uqGoTo(window._uqIdx+1),5000);
+}
+function initCarouselArrows(){}
+
 function placeOrder(){
   const f=document.querySelector('.checkout-form');if(!f)return;
   const inputs=f.querySelectorAll('input,textarea,select');
@@ -267,9 +418,6 @@ function placeOrder(){
   saveOrder(order);cart=[];saveCart();renderCartDrawer();
   app.innerHTML='<div style="text-align:center;padding:80px 24px"><h1 style="font-size:48px;margin-bottom:16px">🎉</h1><h2>Đặt hàng thành công!</h2><p style="color:#636e72;margin:12px 0">Mã đơn: <strong>#'+order.id+'</strong></p><p style="color:#636e72">Cảm ơn bạn đã mua sắm tại GUNO!</p><a href="index.html" class="btn btn-primary" style="margin-top:24px">Tiếp tục mua sắm</a></div>';
 }
-
-/* Auto-slide */
-setInterval(()=>{const slides=$$('.hero-slide');if(slides.length>1){const arrow=$('[data-dir="1"]');if(arrow)arrow.click()}},5000);
 
 /* ===== CHAT WIDGET ===== */
 function renderChatWidget(){

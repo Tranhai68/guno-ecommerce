@@ -276,6 +276,93 @@ img{display:block;max-width:100%;height:auto}
 .chat-toggle{width:56px;height:56px;border-radius:50%;background:var(--ink);border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.2);transition:all .25s}
 .chat-toggle:hover{transform:scale(1.08);background:#1e272e}
 
+/* ===== UNIQLO-STYLE HOMEPAGE ===== */
+
+/* Full-viewport Hero Slider */
+.uq-hero{position:relative;width:100%;height:100vh;min-height:600px;overflow:hidden;background:#000}
+.uq-hero-slide{position:absolute;inset:0;opacity:0;transition:opacity .8s ease;pointer-events:none}
+.uq-hero-slide.active{opacity:1;pointer-events:auto;z-index:1}
+.uq-hero-slide img{width:100%;height:100%;object-fit:cover}
+.uq-hero-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.1) 40%,transparent 70%);display:flex;align-items:flex-end;padding:0 0 80px 64px}
+.uq-hero-text{color:#fff;max-width:520px}
+.uq-hero-tag{display:inline-block;padding:6px 16px;border:1.5px solid rgba(255,255,255,.6);border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin-bottom:16px;backdrop-filter:blur(4px);background:rgba(255,255,255,.08)}
+.uq-hero-title{font-size:42px;font-weight:900;line-height:1.15;margin-bottom:12px;letter-spacing:-.01em}
+.uq-hero-desc{font-size:15px;line-height:1.6;opacity:.85;margin-bottom:8px}
+.uq-hero-price{font-size:22px;font-weight:800;margin-bottom:24px;letter-spacing:.02em}
+.uq-hero-btn{display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 36px;background:#fff;color:var(--ink);font-size:14px;font-weight:700;border:0;border-radius:0;cursor:pointer;transition:all .25s;letter-spacing:.03em}
+.uq-hero-btn:hover{background:var(--ink);color:#fff}
+
+/* Vertical Dots (right side, Uniqlo style) */
+.uq-dots{position:absolute;right:32px;top:50%;transform:translateY(-50%);z-index:10;display:flex;flex-direction:column;gap:12px}
+.uq-dot{width:12px;height:12px;border-radius:50%;border:2px solid rgba(255,255,255,.5);background:transparent;cursor:pointer;transition:all .3s;padding:0}
+.uq-dot.active{background:#fff;border-color:#fff;transform:scale(1.2)}
+
+/* Hero Arrows */
+.uq-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:10;width:48px;height:48px;background:rgba(255,255,255,.15);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.2);border-radius:0;font-size:22px;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s}
+.uq-arrow:hover{background:rgba(255,255,255,.3)}
+.uq-arrow-prev{left:0}.uq-arrow-next{right:0}
+
+/* Category Duo Grid (2-col like Uniqlo) */
+.uq-cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.uq-cat-card{position:relative;overflow:hidden;aspect-ratio:3/4;cursor:pointer}
+.uq-cat-card img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease}
+.uq-cat-card:hover img{transform:scale(1.04)}
+.uq-cat-info{position:absolute;bottom:0;left:0;right:0;padding:32px 40px;background:linear-gradient(0deg,rgba(0,0,0,.5) 0%,transparent 100%);color:#fff}
+.uq-cat-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;opacity:.8}
+.uq-cat-name{font-size:28px;font-weight:900;line-height:1.2;margin-bottom:16px}
+.uq-cat-btn{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#fff;border-bottom:1.5px solid #fff;padding-bottom:2px;transition:opacity .2s}
+.uq-cat-btn:hover{opacity:.7}
+
+/* Section Header (Uniqlo clean style) */
+.uq-section{padding:64px 0}
+.uq-section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;padding:0 24px}
+.uq-section-title{font-size:24px;font-weight:900;letter-spacing:-.01em}
+.uq-section-more{font-size:13px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:6px;border-bottom:1.5px solid var(--ink);padding-bottom:2px;transition:opacity .2s}
+.uq-section-more:hover{opacity:.6}
+
+/* Horizontal Scroll Product Carousel */
+.uq-carousel-wrap{position:relative;overflow:hidden}
+.uq-carousel{display:flex;gap:16px;overflow-x:auto;scroll-behavior:smooth;padding:0 24px 16px;-ms-overflow-style:none;scrollbar-width:none}
+.uq-carousel::-webkit-scrollbar{display:none}
+.uq-carousel .product-card{min-width:240px;max-width:240px;flex-shrink:0}
+.uq-carousel .product-img{border-radius:0}
+.uq-carousel-arrow{position:absolute;top:50%;transform:translateY(-80%);z-index:5;width:44px;height:44px;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:0;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;box-shadow:0 2px 12px rgba(0,0,0,.1)}
+.uq-carousel-arrow:hover{background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.15)}
+.uq-carousel-prev{left:0}.uq-carousel-next{right:0}
+
+/* Feature Banner (full-width lifestyle, Uniqlo editorial) */
+.uq-feature{position:relative;overflow:hidden;aspect-ratio:21/9;min-height:400px}
+.uq-feature img{width:100%;height:100%;object-fit:cover}
+.uq-feature-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;background:rgba(0,0,0,.25)}
+.uq-feature-text{color:#fff;max-width:560px}
+.uq-feature-text h2{font-size:36px;font-weight:900;margin-bottom:12px;line-height:1.2}
+.uq-feature-text p{font-size:15px;opacity:.85;margin-bottom:24px;line-height:1.6}
+
+/* Triple Category Grid */
+.uq-triple{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.uq-triple-card{position:relative;overflow:hidden;aspect-ratio:3/4;cursor:pointer}
+.uq-triple-card img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.uq-triple-card:hover img{transform:scale(1.04)}
+.uq-triple-info{position:absolute;bottom:0;left:0;right:0;padding:28px 32px;background:linear-gradient(0deg,rgba(0,0,0,.5),transparent);color:#fff}
+.uq-triple-info h3{font-size:20px;font-weight:800;margin-bottom:4px}
+.uq-triple-info p{font-size:13px;opacity:.8}
+
+/* USP Strip (clean Uniqlo style) */
+.uq-usp{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.uq-usp-grid{display:grid;grid-template-columns:repeat(4,1fr);max-width:1320px;margin:0 auto}
+.uq-usp-item{display:flex;align-items:center;gap:16px;padding:28px 24px;border-right:1px solid var(--line)}
+.uq-usp-item:last-child{border-right:0}
+.uq-usp-icon{font-size:24px;flex-shrink:0}
+.uq-usp-text strong{display:block;font-size:13px;font-weight:700;margin-bottom:2px}
+.uq-usp-text span{font-size:12px;color:var(--sub)}
+
+/* Sale Banner (Uniqlo clean) */
+.uq-sale{background:var(--red);color:#fff;text-align:center;padding:48px 24px}
+.uq-sale h2{font-size:32px;font-weight:900;margin-bottom:8px;letter-spacing:.02em}
+.uq-sale p{font-size:15px;opacity:.85;margin-bottom:20px}
+.uq-sale-btn{display:inline-flex;height:48px;padding:0 36px;background:#fff;color:var(--red);font-size:14px;font-weight:700;align-items:center;border:0;cursor:pointer;transition:all .25s}
+.uq-sale-btn:hover{background:var(--ink);color:#fff}
+
 /* ===== RESPONSIVE ===== */
 @media(max-width:1024px){
 .product-grid{grid-template-columns:repeat(3,1fr)}
@@ -348,6 +435,33 @@ img{display:block;max-width:100%;height:auto}
 /* Articles */
 .articles-grid{grid-template-columns:1fr}
 .press-grid{grid-template-columns:1fr}
+/* Uniqlo-style responsive */
+.uq-hero{height:70vh;min-height:400px}
+.uq-hero-overlay{padding:0 0 40px 24px}
+.uq-hero-title{font-size:24px}
+.uq-hero-desc{font-size:13px;display:none}
+.uq-hero-price{font-size:18px;margin-bottom:16px}
+.uq-hero-btn{height:40px;padding:0 24px;font-size:13px}
+.uq-dots{right:16px;gap:8px}
+.uq-dot{width:9px;height:9px}
+.uq-arrow{width:36px;height:36px;font-size:18px}
+.uq-cat-grid{grid-template-columns:1fr}
+.uq-cat-card{aspect-ratio:4/5}
+.uq-cat-name{font-size:22px}
+.uq-cat-info{padding:24px}
+.uq-section{padding:40px 0}
+.uq-section-head{padding:0 16px;margin-bottom:20px}
+.uq-section-title{font-size:20px}
+.uq-carousel{padding:0 16px 12px;gap:12px}
+.uq-carousel .product-card{min-width:180px;max-width:180px}
+.uq-feature{aspect-ratio:16/9;min-height:260px}
+.uq-feature-text h2{font-size:24px}
+.uq-feature-text p{font-size:13px}
+.uq-triple{grid-template-columns:1fr}
+.uq-triple-card{aspect-ratio:4/3}
+.uq-usp-grid{grid-template-columns:repeat(2,1fr)}
+.uq-usp-item{padding:20px 16px}
+.uq-sale h2{font-size:22px}
 }
 @media(max-width:480px){
 .product-grid{gap:8px}
@@ -357,4 +471,11 @@ img{display:block;max-width:100%;height:auto}
 .product-name{font-size:11px}
 .price-current{font-size:12px}
 .container{padding:0 12px}
+/* Uniqlo mobile small */
+.uq-hero{height:60vh;min-height:360px}
+.uq-hero-title{font-size:20px}
+.uq-hero-tag{font-size:10px;padding:4px 10px}
+.uq-carousel .product-card{min-width:160px;max-width:160px}
+.uq-usp-grid{grid-template-columns:1fr}
+.uq-usp-item{border-right:0;border-bottom:1px solid var(--line)}
 }
